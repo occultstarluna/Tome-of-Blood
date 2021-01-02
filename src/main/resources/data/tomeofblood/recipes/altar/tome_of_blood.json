@@ -1,0 +1,13 @@
+{
+  "type": "bloodmagic:altar",
+  "input": {
+    "item": "ars_nouveau:apprentice_spell_book"
+  },
+  "output": {
+    "item": "tomeofblood:tome_of_blood"
+  },
+  "upgradeLevel": 2,
+  "altarSyphon": 10000,
+  "consumptionRate": 20,
+  "drainRate": 20
+}
