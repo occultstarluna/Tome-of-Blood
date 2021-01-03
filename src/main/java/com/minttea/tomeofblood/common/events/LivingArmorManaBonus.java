@@ -5,11 +5,14 @@ import com.hollingsworth.arsnouveau.api.event.MaxManaCalcEvent;
 import com.hollingsworth.arsnouveau.api.event.SpellCastEvent;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import com.minttea.tomeofblood.TomeOfBloodMod;
+import com.minttea.tomeofblood.setup.LivingUpgradeRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import wayoftime.bloodmagic.core.living.LivingStats;
 import wayoftime.bloodmagic.core.living.LivingUpgrade;
 import wayoftime.bloodmagic.core.living.LivingUtil;
@@ -17,9 +20,9 @@ import wayoftime.bloodmagic.core.living.LivingUtil;
 import java.util.List;
 
 public class LivingArmorManaBonus {
-
+    private static final Logger LOGGER = LogManager.getLogger();
     @SubscribeEvent
-    public static void awardSpellCastXp(SpellCastEvent event)
+    public static void awardSpellCastArmourUpgrade(SpellCastEvent event)
     {
         LivingEntity entity = event.getEntityLiving();
         List<AbstractSpellPart> spell = event.spell;
@@ -28,25 +31,27 @@ public class LivingArmorManaBonus {
 
             PlayerEntity player = (PlayerEntity) entity;
             if(LivingUtil.hasFullSet(player)){
-                LivingStats stats = LivingStats.fromPlayer(player);
 
                 for (AbstractSpellPart spellpart: spell) {
 
                     switch (spellpart.getTier()) {
                         case THREE:
-                            xpAward += 26;
+                            xpAward += 7;
                             break;
                         case TWO:
-                            xpAward += 12;
+                            xpAward += 3;
                             break;
                         case ONE:
-                            xpAward += 5;
+                            xpAward += 1;
                             break;
                         default:
-
                     }
                 }
-                LivingUtil.applyNewExperience(player, LivingUpgrade.DUMMY,xpAward);
+                //LivingUtil.applyNewExperience(player, LivingUpgradeRegistry.MANA_UPGRADE,xpAward);
+                LivingStats stats = LivingStats.fromPlayer(player);
+                stats.addExperience(new ResourceLocation("tomeofblood", "mana_bonus"), 1);
+                LOGGER.debug("Arcane Attunement level ", stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus")));
+                LivingStats.toPlayer(player, stats);
             }
         }
 
@@ -57,8 +62,8 @@ public class LivingArmorManaBonus {
 
         PlayerEntity player = (PlayerEntity) event.getEntity();
         LivingStats stats = LivingStats.fromPlayer(player);
-        int level = stats.getMaxPoints();
-        int max = event.getMax();
+        double max = event.getMax();
+        int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
         float manaBonus = 1+ (float)level/10;
         event.setMax((int)(max*manaBonus));
 
@@ -68,7 +73,7 @@ public class LivingArmorManaBonus {
     public static void manaRegenByLevel(ManaRegenCalcEvent event) {
         PlayerEntity player = (PlayerEntity) event.getEntity();
         LivingStats stats = LivingStats.fromPlayer(player);
-        int level = stats.getMaxPoints();
+        int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
         double regen = event.getRegen();
         float manaBonus = 1+ (float)level/10;
         event.setRegen((int) (regen*manaBonus));
