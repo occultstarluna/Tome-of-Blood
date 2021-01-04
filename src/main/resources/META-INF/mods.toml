@@ -61,9 +61,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     ordering="NONE"
     side="BOTH"
 [[dependencies.tomeofblood]]
-    modId="minecraft"
+    modId="ars_nouveau"
     mandatory=true
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.16.4,1.17)"
+    versionRange="[1.16.4-1.10.6)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tomeofblood]]
+    modId="bloodmagic"
+    mandatory=true
+    versionRange="[1.16.3-3.0.3-8)"
     ordering="NONE"
     side="BOTH"
