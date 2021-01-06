@@ -19,12 +19,14 @@ public class BloodSpellResolver extends SpellResolver {
     public BloodSpellResolver(AbstractCastMethod cast, List<AbstractSpellPart> spell_recipe, SpellContext context) {
         super(cast, spell_recipe, context);
     }
-
+    public BloodSpellResolver(SpellContext spellContext){
+        this(spellContext.getSpell().recipe, spellContext);
+    }
     public BloodSpellResolver(List<AbstractSpellPart> currentRecipe, SpellContext context) {
         super(currentRecipe, context);
     }
 
-
+    @Override
     public void expendMana(LivingEntity entity)
     {
         int totalCost = ManaUtil.getCastingCost(spell_recipe, entity)*10;

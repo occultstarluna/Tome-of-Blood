@@ -68,7 +68,15 @@ public class BloodTome extends SpellBook {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if(!stack.hasTag())
             return new ActionResult<>(ActionResultType.SUCCESS, stack);
-        
+
+        ManaCapability.getMana(playerIn).ifPresent(iMana -> {
+            if(iMana.getBookTier() < this.tier.ordinal()){
+                iMana.setBookTier(this.tier.ordinal());
+            }
+            if(iMana.getGlyphBonus() < SpellBook.getUnlockedSpells(stack.getTag()).size()){
+                iMana.setGlyphBonus(SpellBook.getUnlockedSpells(stack.getTag()).size());
+            }
+        });
 
         RayTraceResult result = playerIn.pick(5, 0, false);
         if(result instanceof BlockRayTraceResult && worldIn.getTileEntity(((BlockRayTraceResult) result).getPos()) instanceof ScribesTile)
@@ -94,8 +102,8 @@ public class BloodTome extends SpellBook {
             Networking.INSTANCE.send(PacketDistributor.PLAYER.with(()->player), new PacketOpenSpellBook(stack.getTag(), getTier().ordinal(), getUnlockedSpellString(player.getHeldItem(handIn).getTag())));
             return new ActionResult<>(ActionResultType.CONSUME, stack);
         }
-        BloodSpellResolver resolver = new BloodSpellResolver(getCurrentRecipe(stack), new SpellContext(getCurrentRecipe(stack), playerIn)
-                .withColors(SpellBook.getSpellColor(stack.getTag(), getMode(stack.getTag()))));
+        BloodSpellResolver resolver = new BloodSpellResolver(new SpellContext(getCurrentRecipe(stack), playerIn)
+                .withColors(SpellBook.getSpellColor(stack.getTag(), SpellBook.getMode(stack.getTag()))));
         EntityRayTraceResult entityRes = MathUtil.getLookedAtEntity(playerIn, 25);
 
         if(entityRes != null && entityRes.getEntity() instanceof LivingEntity){

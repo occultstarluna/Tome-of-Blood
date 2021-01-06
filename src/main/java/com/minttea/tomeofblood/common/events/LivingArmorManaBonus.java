@@ -59,23 +59,28 @@ public class LivingArmorManaBonus {
     @SubscribeEvent
     public static void maxManaForArmor(MaxManaCalcEvent event)
     {
-
         PlayerEntity player = (PlayerEntity) event.getEntity();
         LivingStats stats = LivingStats.fromPlayer(player);
-        double max = event.getMax();
-        int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
-        float manaBonus = 1+ (float)level/10;
-        event.setMax((int)(max*manaBonus));
+        if(stats != null) {
 
+
+            double max = event.getMax();
+            int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
+            float manaBonus = 1 + (float) level / 10;
+            event.setMax((int) (max * manaBonus));
+        }
 
     }
     @SubscribeEvent
     public static void manaRegenByLevel(ManaRegenCalcEvent event) {
         PlayerEntity player = (PlayerEntity) event.getEntity();
         LivingStats stats = LivingStats.fromPlayer(player);
-        int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
-        double regen = event.getRegen();
-        float manaBonus = 1+ (float)level/10;
-        event.setRegen((int) (regen*manaBonus));
+        if(stats != null) {
+
+            int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
+            double regen = event.getRegen();
+            float manaBonus = 1 + (float) level / 10;
+            event.setRegen((int) (regen * manaBonus));
+        }
     }
 }
