@@ -6,14 +6,18 @@ import com.hollingsworth.arsnouveau.api.spell.SpellContext;
 import com.hollingsworth.arsnouveau.api.spell.SpellResolver;
 import com.hollingsworth.arsnouveau.api.util.ManaUtil;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.event.world.NoteBlockEvent;
 import wayoftime.bloodmagic.core.data.SoulNetwork;
 import wayoftime.bloodmagic.core.data.SoulTicket;
 import wayoftime.bloodmagic.util.helper.NetworkHelper;
 
 import java.util.List;
+
+import static com.minttea.tomeofblood.TomeOfBloodMod.LOGGER;
 
 public class BloodSpellResolver extends SpellResolver {
     public BloodSpellResolver(AbstractCastMethod cast, List<AbstractSpellPart> spell_recipe, SpellContext context) {
@@ -29,9 +33,13 @@ public class BloodSpellResolver extends SpellResolver {
     @Override
     public void expendMana(LivingEntity entity)
     {
-        int totalCost = ManaUtil.getCastingCost(spell_recipe, entity)*10;
-        SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(entity.getUniqueID());
-        SoulTicket ticket = new SoulTicket(ITextComponent.getTextComponentOrEmpty("Spell cast"),totalCost);
-        soulNetwork.syphon(ticket);
+        if(entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
+            int totalCost = ManaUtil.getCastingCost(spell_recipe, player) * 10;
+            SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(player.getUniqueID());
+            //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
+            SoulTicket ticket = new SoulTicket(ITextComponent.getTextComponentOrEmpty("Spell cast"), totalCost);
+            soulNetwork.syphonAndDamage(player, ticket);
+        }
     }
 }

@@ -30,7 +30,7 @@ public class TomeOfBloodMod
 {
     public static final String MODID = "tomeofblood";
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public TomeOfBloodMod() {
         // Register ourselves for server and other game events we are interested in

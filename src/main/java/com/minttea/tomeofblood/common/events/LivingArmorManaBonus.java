@@ -4,8 +4,7 @@ import com.hollingsworth.arsnouveau.api.event.ManaRegenCalcEvent;
 import com.hollingsworth.arsnouveau.api.event.MaxManaCalcEvent;
 import com.hollingsworth.arsnouveau.api.event.SpellCastEvent;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
-import com.minttea.tomeofblood.TomeOfBloodMod;
-import com.minttea.tomeofblood.setup.LivingUpgradeRegistry;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -47,7 +46,6 @@ public class LivingArmorManaBonus {
                         default:
                     }
                 }
-                //LivingUtil.applyNewExperience(player, LivingUpgradeRegistry.MANA_UPGRADE,xpAward);
                 LivingStats stats = LivingStats.fromPlayer(player);
                 stats.addExperience(new ResourceLocation("tomeofblood", "mana_bonus"), 1);
                 LOGGER.debug("Arcane Attunement level ", stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus")));
@@ -62,8 +60,6 @@ public class LivingArmorManaBonus {
         PlayerEntity player = (PlayerEntity) event.getEntity();
         LivingStats stats = LivingStats.fromPlayer(player);
         if(stats != null) {
-
-
             double max = event.getMax();
             int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
             float manaBonus = 1 + (float) level / 10;
@@ -76,7 +72,6 @@ public class LivingArmorManaBonus {
         PlayerEntity player = (PlayerEntity) event.getEntity();
         LivingStats stats = LivingStats.fromPlayer(player);
         if(stats != null) {
-
             int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
             double regen = event.getRegen();
             float manaBonus = 1 + (float) level / 10;
