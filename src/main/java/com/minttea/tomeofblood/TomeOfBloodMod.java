@@ -28,6 +28,14 @@ import java.util.stream.Collectors;
 @Mod(TomeOfBloodMod.MODID)
 public class TomeOfBloodMod
 {
+
+    /**
+     * TODO: Robes of the Blood Mage
+     * TODO: Consider Blood Gems and their implications
+     * TODO: Consider the implications of Self-Sacrifice as a spell
+     * TODO: Debate multi-tiered Tomes of Blood
+     * TODO: Consider what mobs are possible
+     */
     public static final String MODID = "tomeofblood";
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
