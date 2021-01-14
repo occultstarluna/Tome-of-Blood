@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.world.NoteBlockEvent;
 import wayoftime.bloodmagic.core.data.SoulNetwork;
 import wayoftime.bloodmagic.core.data.SoulTicket;
@@ -38,7 +39,7 @@ public class BloodSpellResolver extends SpellResolver {
             int totalCost = ManaUtil.getCastingCost(spell_recipe, player) * 10;
             SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(player.getUniqueID());
             //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
-            SoulTicket ticket = new SoulTicket(ITextComponent.getTextComponentOrEmpty("Spell cast"), totalCost);
+            SoulTicket ticket = new SoulTicket(new StringTextComponent("Spell cast"), totalCost);
             soulNetwork.syphonAndDamage(player, ticket);
         }
     }
