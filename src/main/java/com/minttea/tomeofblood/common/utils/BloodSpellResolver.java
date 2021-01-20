@@ -36,7 +36,7 @@ public class BloodSpellResolver extends SpellResolver {
     {
         if(entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
-            int totalCost = ManaUtil.getCastingCost(spell_recipe, player) * 10;
+            int totalCost = getCastingCost(this.spell,player);
             SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(player.getUniqueID());
             //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
             SoulTicket ticket = new SoulTicket(new StringTextComponent("Spell cast"), totalCost);
