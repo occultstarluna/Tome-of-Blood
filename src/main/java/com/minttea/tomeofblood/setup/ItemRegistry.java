@@ -1,6 +1,5 @@
 package com.minttea.tomeofblood.setup;
 
-import com.hollingsworth.arsnouveau.api.spell.ISpellTier;
 import com.minttea.tomeofblood.TomeOfBloodMod;
 import com.minttea.tomeofblood.common.items.BloodTome;
 import net.minecraft.item.Item;

@@ -37,21 +37,13 @@ public class LivingArmorManaBonus {
                 stats.addExperience(new ResourceLocation("tomeofblood", "mana_bonus"), xpAward);
                 LOGGER.debug("Arcane Attunement level ", stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus")));
                 LivingStats.toPlayer(player, stats);
-                if(stats)
+                if(stats != null)
+                {
+                    int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
+                    float discount = 1-(float) level / 10;
+                    spell.setCost((int) discount);
+                }
             }
-        }
-
-    }
-    @SubscribeEvent
-    public static void maxManaForArmor(MaxManaCalcEvent event)
-    {
-        PlayerEntity player = (PlayerEntity) event.getEntity();
-        LivingStats stats = LivingStats.fromPlayer(player);
-        if(stats != null) {
-            double max = event.getMax();
-            int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
-            float manaBonus = 1 + (float) level / 10;
-            event.setMax((int) (max * manaBonus));
         }
 
     }

@@ -63,7 +63,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
 [[dependencies.tomeofblood]]
 modId="ars_nouveau"
 mandatory=true
-versionRange="[1.10,)"
+versionRange="[1.11,)"
 ordering="AFTER"
 side="BOTH"
 [[dependencies.tomeofblood]]

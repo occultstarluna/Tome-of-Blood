@@ -18,7 +18,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "com.wynprice.cursemaven"
 apply plugin: 'org.spongepowered.mixin'
-version = '1.16.4-1.0.3'
+version = '1.16.4-1.0.4'
 group = 'com.minttea.tomeofblood' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'tomeofblood'
 
@@ -125,8 +125,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:curios:3122651")
     compileOnly fg.deobf("curse.maven:patchouli:3126931")
     runtimeOnly fg.deobf("curse.maven:patchouli:3126931")
-    compileOnly fg.deobf("curse.maven:ars-noveau:3173254")
-    runtimeOnly fg.deobf("curse.maven:ars-noveau:3173254")
+    compileOnly fg.deobf("curse.maven:ars-noveau:3174543")
+    runtimeOnly fg.deobf("curse.maven:ars-noveau:3174543")
     compileOnly fg.deobf("curse.maven:blood-magic:3149693")
     runtimeOnly fg.deobf("curse.maven:blood-magic:3149693")
 

@@ -1,15 +1,7 @@
 package com.minttea.tomeofblood.common.items;
 
-import com.hollingsworth.arsnouveau.api.client.IDisplayMana;
-import com.hollingsworth.arsnouveau.api.item.IScribeable;
-import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
-import com.hollingsworth.arsnouveau.api.spell.ISpellTier;
 import com.hollingsworth.arsnouveau.api.spell.SpellContext;
-import com.hollingsworth.arsnouveau.api.spell.SpellResolver;
 import com.hollingsworth.arsnouveau.api.util.MathUtil;
-import com.hollingsworth.arsnouveau.api.util.SpellRecipeUtil;
-import com.hollingsworth.arsnouveau.client.keybindings.ModKeyBindings;
-import com.hollingsworth.arsnouveau.client.particle.ParticleColor;
 import com.hollingsworth.arsnouveau.common.block.tile.IntangibleAirTile;
 import com.hollingsworth.arsnouveau.common.block.tile.PhantomBlockTile;
 import com.hollingsworth.arsnouveau.common.block.tile.ScribesTile;
@@ -17,44 +9,22 @@ import com.hollingsworth.arsnouveau.common.capability.ManaCapability;
 import com.hollingsworth.arsnouveau.common.items.SpellBook;
 import com.hollingsworth.arsnouveau.common.network.Networking;
 import com.hollingsworth.arsnouveau.common.network.PacketOpenSpellBook;
-import com.hollingsworth.arsnouveau.common.util.PortUtil;
-import com.minttea.tomeofblood.TomeOfBloodMod;
-import com.minttea.tomeofblood.client.renderer.item.TomeRenderer;
 import com.minttea.tomeofblood.common.utils.BloodSpellResolver;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.UseAction;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.PacketDistributor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.hollingsworth.arsnouveau.common.items.SpellBook.getMode;
-import static com.hollingsworth.arsnouveau.common.items.SpellBook.getUnlockedSpellString;
 
 public class BloodTome extends SpellBook {
 
