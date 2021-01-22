@@ -26,23 +26,26 @@ public class LivingArmorManaBonus {
     {
         LivingEntity entity = event.getEntityLiving();
         Spell spell = event.spell;
-        int xpAward = 1;
+        int xpAward;
         if(entity instanceof PlayerEntity){
 
             PlayerEntity player = (PlayerEntity) entity;
             if(LivingUtil.hasFullSet(player)){
 
-                xpAward = (int)((double) spell.getCastingCost()/100);
+                xpAward = (int)((double) spell.getCastingCost()/50);
                 LivingStats stats = LivingStats.fromPlayer(player);
                 stats.addExperience(new ResourceLocation("tomeofblood", "mana_bonus"), xpAward);
-                LOGGER.debug("Arcane Attunement level ", stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus")));
+                //LOGGER.debug("Arcane Attunement level ", stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus")));
                 LivingStats.toPlayer(player, stats);
-                if(stats != null)
-                {
                     int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
                     float discount = 1-(float) level / 10;
-                    spell.setCost((int) discount);
-                }
+                    LOGGER.debug("Discount: " + discount);
+                    float manacost = spell.getCastingCost();
+                    LOGGER.debug("Cost: " + manacost);
+                    manacost *= discount;
+                    LOGGER.debug("Post discount cost: " + manacost);
+                    spell.setCost((int) manacost);
+
             }
         }
 
