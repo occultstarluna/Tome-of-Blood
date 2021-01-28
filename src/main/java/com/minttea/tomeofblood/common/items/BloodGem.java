@@ -72,6 +72,8 @@ public class BloodGem extends Item implements IScribeable, IBindable {
                             ||(worldIn.getTileEntity(((BlockRayTraceResult) result).getPos()) instanceof PhantomBlockTile))) {
                 return new ActionResult<>(ActionResultType.SUCCESS, stack);
             }
+            stack = ItemStack.EMPTY;
+
         }
 
         if(caster.getSpell() == null) {
