@@ -1,7 +1,7 @@
 package com.minttea.tomeofblood.common.client.gui;
 
 import com.hollingsworth.arsnouveau.common.items.Glyph;
-import com.minttea.tomeofblood.common.items.scroll.BloodScroll;
+import com.minttea.tomeofblood.common.items.bloodmagic.scroll.BloodScroll;
 import com.minttea.tomeofblood.setup.Registry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

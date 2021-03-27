@@ -1,10 +1,11 @@
 package com.minttea.tomeofblood.setup;
 
+import com.hollingsworth.arsnouveau.api.spell.ISpellTier;
 import com.minttea.tomeofblood.TomeOfBloodMod;
 import com.minttea.tomeofblood.common.client.gui.GuiBloodScroll;
-import com.minttea.tomeofblood.common.items.BloodGem;
-import com.minttea.tomeofblood.common.items.BloodTome;
-import com.minttea.tomeofblood.common.items.scroll.BloodScroll;
+import com.minttea.tomeofblood.common.items.bloodmagic.BloodGem;
+import com.minttea.tomeofblood.common.items.bloodmagic.BloodTome;
+import com.minttea.tomeofblood.common.items.bloodmagic.scroll.BloodScroll;
 import com.minttea.tomeofblood.common.client.gui.ScrollContainer;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
@@ -37,7 +38,7 @@ public class Registry {
         {
             Item[] items =
                     {
-                    new BloodTome().setRegistryName("tome_of_blood"),
+                    new BloodTome(ISpellTier.Tier.ONE).setRegistryName("tome_of_blood_one"),
                     new BloodScroll().setRegistryName("blood_scroll"),
                     new BloodGem().setRegistryName("blood_gem")
                    // bloodTome

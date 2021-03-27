@@ -3,5 +3,6 @@
   "living_upgrade.tomeofblood.mana_bonus": "Arcane Attunement",
   "item.tomeofblood.tome_of_blood": "Tome Of Blood",
   "item.tomeofblood.blood_gem": "Blood Gem",
-  "item.tomeofblood.blood_scroll": "Scroll of Blood Magic"
+  "item.tomeofblood.blood_scroll": "Scroll of Blood Magic",
+  "toomanytomes.alert.lack_lp": "Not enough Life Essence is present to cast."
 }

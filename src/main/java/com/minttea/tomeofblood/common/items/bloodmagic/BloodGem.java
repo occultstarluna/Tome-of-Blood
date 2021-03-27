@@ -1,4 +1,4 @@
-package com.minttea.tomeofblood.common.items;
+package com.minttea.tomeofblood.common.items.bloodmagic;
 
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.api.item.IScribeable;
@@ -7,8 +7,9 @@ import com.hollingsworth.arsnouveau.api.util.MathUtil;
 import com.hollingsworth.arsnouveau.common.block.tile.IntangibleAirTile;
 import com.hollingsworth.arsnouveau.common.block.tile.PhantomBlockTile;
 import com.hollingsworth.arsnouveau.common.block.tile.ScribesTile;
+import com.hollingsworth.arsnouveau.common.items.SpellBook;
+import com.hollingsworth.arsnouveau.common.items.SpellParchment;
 import com.hollingsworth.arsnouveau.common.util.PortUtil;
-import com.minttea.tomeofblood.common.items.scroll.BloodScroll;
 import com.minttea.tomeofblood.common.utils.BloodSpellResolver;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,17 +42,31 @@ public class BloodGem extends Item implements IScribeable, IBindable {
 
         if(caster == null)
             return false;
-        if(!(held.getItem() instanceof BloodScroll || held.getTag()==null))
+        if(!(held.getItem() instanceof SpellParchment || held.getItem() instanceof SpellBook || held.getTag()==null))
             return false;
 
         Spell spell = new Spell();
-        List<AbstractSpellPart> parts = BloodScroll.getInventory(held).getSpellRecipe();
-        spell = new Spell(parts);
-        if(setSpell(caster, player, hand, itemStack, spell)) {
-            sendSetMessage(player);
-            return true;
+        List<AbstractSpellPart> parts = null;
+        if(held.getItem() instanceof SpellParchment) {
+             parts = SpellParchment.getSpellRecipe(held);
+        } else if(held.getItem() instanceof SpellBook) {
+            parts = ((SpellBook) held.getItem()).getCurrentRecipe(held).recipe;
         }
-
+        if(parts != null){
+            spell = new Spell(parts);
+            if(caster.getSpell().getSpellSize() > 0) {
+                if(addToSpell(caster,player,hand,itemStack,spell))
+                {
+                    sendSetMessage(player);
+                    return true;
+                }
+            } else {
+                if (setSpell(caster, player, hand, itemStack, spell)) {
+                    sendSetMessage(player);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -102,7 +117,13 @@ public class BloodGem extends Item implements IScribeable, IBindable {
         caster.setSpell(spell);
         return true;
     }
+    private boolean addToSpell(ISpellCaster caster, PlayerEntity player, Hand hand, ItemStack itemStack, Spell spell) {
+        Spell newSpell = caster.getSpell();
+        newSpell.recipe.addAll(spell.recipe);
 
+        caster.setSpell(newSpell);
+        return true;
+    }
     public ISpellCaster getSpellCaster(ItemStack stack){
         return SpellCaster.deserialize(stack);
     }

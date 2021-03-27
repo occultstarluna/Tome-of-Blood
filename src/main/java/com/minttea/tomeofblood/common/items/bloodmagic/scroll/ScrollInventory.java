@@ -1,6 +1,5 @@
-package com.minttea.tomeofblood.common.items.scroll;
+package com.minttea.tomeofblood.common.items.bloodmagic.scroll;
 
-import com.hollingsworth.arsnouveau.api.spell.AbstractEffect;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import com.hollingsworth.arsnouveau.common.items.Glyph;
 import com.minttea.tomeofblood.util.NBTHelper;
@@ -9,7 +8,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 import java.util.List;
