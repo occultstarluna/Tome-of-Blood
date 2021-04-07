@@ -3,6 +3,10 @@ buildscript {
         maven { url = 'https://files.minecraftforge.net/maven' }
         maven { url  = 'https://plugins.gradle.org/m2/' }
         maven { url='https://dist.creeper.host/Sponge/maven' }
+        maven {
+            url = "https://maven.ellpeck.de"
+        }
+        maven { url 'https://maven.blamejared.com' }
         jcenter()
         mavenCentral()
     }
@@ -18,7 +22,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "com.wynprice.cursemaven"
 //apply plugin: 'org.spongepowered.mixin'
-version = '1.16.4-1.0.5'
+version = '1.16.5-1.1'
 group = 'com.minttea.tomeofblood' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'tomeofblood'
 
@@ -133,6 +137,11 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:occultism:3238238")
     compileOnly fg.deobf("curse.maven:eidolon:3157832")
     runtimeOnly fg.deobf("curse.maven:eidolon:3157832")
+    compileOnly fg.deobf("curse.maven:natures-aura:3255666")
+    runtimeOnly fg.deobf("curse.maven:natures-aura:3255666")
+    compileOnly fg.deobf("curse.maven:botania:3233810")
+    runtimeOnly fg.deobf("curse.maven:botania:3233810")
+
 
 }
 

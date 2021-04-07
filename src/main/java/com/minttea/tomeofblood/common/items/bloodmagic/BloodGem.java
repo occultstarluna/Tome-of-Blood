@@ -10,7 +10,6 @@ import com.hollingsworth.arsnouveau.common.block.tile.ScribesTile;
 import com.hollingsworth.arsnouveau.common.items.SpellBook;
 import com.hollingsworth.arsnouveau.common.items.SpellParchment;
 import com.hollingsworth.arsnouveau.common.util.PortUtil;
-import com.minttea.tomeofblood.common.utils.BloodSpellResolver;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

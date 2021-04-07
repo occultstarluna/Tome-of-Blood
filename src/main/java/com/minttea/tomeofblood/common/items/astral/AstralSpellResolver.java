@@ -1,37 +1,29 @@
-package com.minttea.tomeofblood.common.utils;
+package com.minttea.tomeofblood.common.items.astral;
 
 import com.hollingsworth.arsnouveau.api.spell.AbstractCastMethod;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import com.hollingsworth.arsnouveau.api.spell.SpellContext;
 import com.hollingsworth.arsnouveau.api.spell.SpellResolver;
-import com.hollingsworth.arsnouveau.api.util.ManaUtil;
 import com.hollingsworth.arsnouveau.common.util.PortUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.event.world.NoteBlockEvent;
 import wayoftime.bloodmagic.core.data.SoulNetwork;
 import wayoftime.bloodmagic.core.data.SoulTicket;
 import wayoftime.bloodmagic.util.helper.NetworkHelper;
 
-import javax.sound.sampled.Port;
 import java.util.List;
 
-import static com.minttea.tomeofblood.TomeOfBloodMod.LOGGER;
-
-public class BloodSpellResolver extends SpellResolver {
-    public BloodSpellResolver(AbstractCastMethod cast, List<AbstractSpellPart> spell_recipe, SpellContext context) {
+public class AstralSpellResolver extends SpellResolver {
+    public AstralSpellResolver(AbstractCastMethod cast, List<AbstractSpellPart> spell_recipe, SpellContext context) {
         super(cast, spell_recipe, context);
     }
-    public BloodSpellResolver(SpellContext spellContext){
+    public AstralSpellResolver(SpellContext spellContext){
         this(spellContext.getSpell().recipe, spellContext);
     }
-    public BloodSpellResolver(List<AbstractSpellPart> currentRecipe, SpellContext context) {
+    public AstralSpellResolver(List<AbstractSpellPart> currentRecipe, SpellContext context) {
         super(currentRecipe, context);
     }
 
