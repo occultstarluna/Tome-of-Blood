@@ -5,6 +5,8 @@ import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import com.hollingsworth.arsnouveau.api.spell.SpellContext;
 import com.hollingsworth.arsnouveau.api.spell.SpellResolver;
 import com.hollingsworth.arsnouveau.common.util.PortUtil;
+import com.minttea.tomeofblood.common.capabilities.IWarlockPower;
+import com.minttea.tomeofblood.common.capabilities.WarlockPowerCapability;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
@@ -48,16 +50,18 @@ public class WarlockSpellResolver extends SpellResolver {
         if(entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
             int totalCost = getCastingCost(this.spell,player);
-            SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(player.getUniqueID());
-            //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
-            int pool = soulNetwork.getCurrentEssence();
-            if(pool < this.getCastingCost(spell,entity))
+            IWarlockPower power = WarlockPowerCapability.getPower(entity).orElse(null);
+            if(totalCost < power.getCurrentPower())
             {
-                entity.sendMessage(new TranslationTextComponent("toomanytomes.alert.lack_lp"), Util.DUMMY_UUID);
+                player.sendMessage(new StringTextComponent("Not enough power..."), Util.DUMMY_UUID);
                 return false;
+            } else {
+                return true;
             }
 
         }
+
+
 
         return true;
     }
@@ -69,10 +73,9 @@ public class WarlockSpellResolver extends SpellResolver {
         if(entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
             int totalCost = getCastingCost(this.spell,player);
-            SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(player.getUniqueID());
-            //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
-            SoulTicket ticket = new SoulTicket(new StringTextComponent("Spell cast"), totalCost);
-            soulNetwork.syphonAndDamage(player, ticket);
+           WarlockPowerCapability.getPower(entity).ifPresent(power -> power.spendPower(totalCost));
+           double remaining = WarlockPowerCapability.getPower(entity).orElse(null).getCurrentPower();
+           player.sendMessage(new StringTextComponent("Casted spell for " + totalCost + " power.  " + remaining + " remaining."), Util.DUMMY_UUID);
         }
     }
 }

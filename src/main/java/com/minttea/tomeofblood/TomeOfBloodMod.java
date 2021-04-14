@@ -1,7 +1,11 @@
 package com.minttea.tomeofblood;
 
+import com.minttea.tomeofblood.common.capabilities.WarlockPowerCapability;
 import com.minttea.tomeofblood.common.events.LivingArmorManaBonus;
 import com.minttea.tomeofblood.setup.LivingUpgradeRegistry;
+import com.minttea.tomeofblood.setup.Registry;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -28,10 +32,20 @@ public class TomeOfBloodMod
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
 
+
+    public static ItemGroup itemGroup = new ItemGroup(MODID) {
+        @Override
+        public ItemStack createIcon() {
+            return Registry.bloodTome3.getDefaultInstance();
+        }
+    };
+
     public TomeOfBloodMod() {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(LivingArmorManaBonus.class);
+        Registry.RegistrationHandler.registerSpells();
+        WarlockPowerCapability.register();
         LivingUpgradeRegistry.register();
 
     }

@@ -1,8 +1,7 @@
-package com.minttea.tomeofblood.common.client.renderer.item;
+package com.minttea.tomeofblood.client.renderer.item;
 
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.api.spell.ISpellTier;
-import com.hollingsworth.arsnouveau.client.renderer.item.SpellBookModel;
 import com.hollingsworth.arsnouveau.client.renderer.item.TransformAnimatedModel;
 import com.minttea.tomeofblood.TomeOfBloodMod;
 import com.minttea.tomeofblood.common.items.SpellTome;
@@ -12,7 +11,6 @@ import com.minttea.tomeofblood.common.items.botania.BotanicTome;
 import com.minttea.tomeofblood.common.items.eidolon.WarlockTome;
 import com.minttea.tomeofblood.common.items.nature.NaturalTome;
 import com.minttea.tomeofblood.common.items.occultism.OccultTome;
-import elucent.eidolon.spell.Spell;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.util.ResourceLocation;
 
@@ -60,7 +58,7 @@ public class SpellTomeModel extends TransformAnimatedModel<SpellTome> {
         }
         else if(spellTome instanceof BloodTome)
         {
-            return new ResourceLocation(TomeOfBloodMod.MODID, "textures/items/tome_of_blood.png");
+            return new ResourceLocation(TomeOfBloodMod.MODID, "textures/items/blood_magic_tome.png");
         }
         else if(spellTome instanceof BotanicTome)
         {

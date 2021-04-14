@@ -18,7 +18,7 @@ public class WarlockTome  extends SpellTome {
     @Override
     public SpellResolver getSpellResolver(SpellContext context)
     {
-        return new BloodSpellResolver(context);
+        return new WarlockSpellResolver(context);
     }
 
 

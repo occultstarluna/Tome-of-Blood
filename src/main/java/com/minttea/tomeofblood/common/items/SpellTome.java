@@ -8,7 +8,6 @@ import com.hollingsworth.arsnouveau.api.util.MathUtil;
 import com.hollingsworth.arsnouveau.api.util.SpellRecipeUtil;
 import com.hollingsworth.arsnouveau.client.keybindings.ModKeyBindings;
 import com.hollingsworth.arsnouveau.client.particle.ParticleColor;
-import com.hollingsworth.arsnouveau.client.renderer.item.SpellBookRenderer;
 import com.hollingsworth.arsnouveau.common.block.tile.IntangibleAirTile;
 import com.hollingsworth.arsnouveau.common.block.tile.PhantomBlockTile;
 import com.hollingsworth.arsnouveau.common.block.tile.ScribesTile;
@@ -16,6 +15,8 @@ import com.hollingsworth.arsnouveau.common.items.SpellBook;
 import com.hollingsworth.arsnouveau.common.network.Networking;
 import com.hollingsworth.arsnouveau.common.network.PacketOpenSpellBook;
 import com.hollingsworth.arsnouveau.common.util.PortUtil;
+import com.minttea.tomeofblood.TomeOfBloodMod;
+import com.minttea.tomeofblood.client.renderer.item.SpellTomeRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -45,7 +46,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SpellTome extends Item implements ISpellTier, IScribeable, IAnimatable {
+public class SpellTome extends SpellBook {
 
 
     public static final String BOOK_MODE_TAG = "mode";
@@ -54,7 +55,7 @@ public class SpellTome extends Item implements ISpellTier, IScribeable, IAnimata
     public Tier tier;
 
     public SpellTome(Tier tier){
-        super(new Item.Properties().maxStackSize(1).group(ArsNouveau.itemGroup).setISTER(() -> SpellBookRenderer::new));
+        super(new Item.Properties().maxStackSize(1).group(TomeOfBloodMod.itemGroup).setISTER(() -> SpellTomeRenderer::new), tier);
         this.tier = tier;
     }
 
@@ -114,171 +115,4 @@ public class SpellTome extends Item implements ISpellTier, IScribeable, IAnimata
     }
 
 
-
-
-
-
-
-    @Override
-    public boolean isDamageable() {
-        return false;
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if(!stack.hasTag())
-            stack.setTag(new CompoundNBT());
-
-        if(!worldIn.isRemote && worldIn.getGameTime() % 5 == 0 && !stack.hasTag()) {
-            CompoundNBT tag = new CompoundNBT();
-            tag.putInt(SpellBook.BOOK_MODE_TAG, 0);
-            StringBuilder starting_spells = new StringBuilder();
-            ArsNouveauAPI.getInstance().getDefaultStartingSpells().forEach(s-> starting_spells.append(",").append(s.getTag().trim()));
-            tag.putString(SpellBook.UNLOCKED_SPELLS, starting_spells.toString());
-            stack.setTag(tag);
-        }
-        super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
-    }
-
-
-
-
-    @Override
-    public boolean onScribe(World world, BlockPos pos, PlayerEntity player, Hand handIn, ItemStack stack) {
-        if(!(player.getHeldItem(handIn).getItem() instanceof SpellBook))
-            return false;
-
-        List<AbstractSpellPart> spellParts = SpellBook.getUnlockedSpells(player.getHeldItem(handIn).getTag());
-        int unlocked = 0;
-        for(AbstractSpellPart spellPart : spellParts){
-            if(SpellBook.unlockSpell(stack.getTag(), spellPart))
-                unlocked++;
-        }
-        PortUtil.sendMessage(player, new StringTextComponent("Copied " + unlocked + " new glyphs to the book."));
-        return true;
-    }
-
-
-    /**
-     * How long it takes to use or consume an item
-     */
-    public int getUseDuration(ItemStack stack) {
-        return 72000;
-    }
-
-    /**
-     * returns the action that specifies what animation to play when the items is being used
-     */
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
-    }
-
-
-    public Spell getCurrentRecipe(ItemStack stack){
-        return SpellBook.getRecipeFromTag(stack.getTag(), getMode(stack.getTag()));
-    }
-
-    public static Spell getRecipeFromTag(CompoundNBT tag, int r_slot){
-        String recipeStr = getRecipeString(tag, r_slot);
-        return Spell.deserialize(recipeStr);
-    }
-
-    @Override
-    public boolean doesSneakBypassUse(ItemStack stack, IWorldReader world, BlockPos pos, PlayerEntity player) {
-        return true;
-    }
-
-    public static void setSpellName(CompoundNBT tag, String name, int slot){
-        tag.putString(slot + "_name", name);
-    }
-
-    public static String getSpellName(CompoundNBT tag, int slot){
-        if(slot == 0)
-            return "Create Mode";
-        return tag.getString( slot+ "_name");
-    }
-
-    public static void setSpellColor(CompoundNBT tag, ParticleColor.IntWrapper color, int slot){
-        tag.putString(slot + "_color", color.serialize());
-    }
-
-    public static ParticleColor.IntWrapper getSpellColor(CompoundNBT tag, int slot){
-        String key = slot+ "_color";
-        if(!tag.contains(key))
-            return new ParticleColor.IntWrapper(255, 25, 180);
-
-        return ParticleColor.IntWrapper.deserialize(tag.getString(key));
-    }
-
-    public static String getSpellName(CompoundNBT tag){
-        return getSpellName( tag, getMode(tag));
-    }
-
-    public static String getRecipeString(CompoundNBT tag, int spell_slot){
-        return tag.getString(spell_slot + "recipe");
-    }
-
-    public static void setRecipe(CompoundNBT tag, String recipe, int spell_slot){
-        tag.putString(spell_slot + "recipe", recipe);
-    }
-
-    public static int getMode(CompoundNBT tag){
-        return tag.getInt(SpellBook.BOOK_MODE_TAG);
-    }
-
-    public static void setMode(CompoundNBT tag, int mode){
-        tag.putInt(SpellBook.BOOK_MODE_TAG, mode);
-    }
-
-    public static List<AbstractSpellPart> getUnlockedSpells(CompoundNBT tag){
-        return SpellRecipeUtil.getSpellsFromString(tag.getString(SpellBook.UNLOCKED_SPELLS));
-    }
-
-    public static String getUnlockedSpellString(CompoundNBT tag){
-        return tag.getString(SpellBook.UNLOCKED_SPELLS);
-    }
-
-    public static boolean unlockSpell(CompoundNBT tag, AbstractSpellPart spellPart){
-        if(containsSpell(tag, spellPart))
-            return false;
-        String newSpells = tag.getString(SpellBook.UNLOCKED_SPELLS) + "," + spellPart.getTag();
-        tag.putString(SpellBook.UNLOCKED_SPELLS, newSpells);
-        return true;
-    }
-
-    public static void unlockSpell(CompoundNBT tag, String spellTag){
-        String newSpells = tag.getString(SpellBook.UNLOCKED_SPELLS) + "," + spellTag;
-        tag.putString(SpellBook.UNLOCKED_SPELLS, newSpells);
-    }
-
-    public static boolean containsSpell(CompoundNBT tag, AbstractSpellPart spellPart){
-        return SpellBook.getUnlockedSpells(tag).contains(spellPart);
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(final ItemStack stack, @Nullable final World world, final List<ITextComponent> tooltip, final ITooltipFlag flag) {
-        super.addInformation(stack, world, tooltip, flag);
-        if(stack != null && stack.hasTag()) {
-            tooltip.add(new StringTextComponent(SpellBook.getSpellName(stack.getTag())));
-
-            tooltip.add(new StringTextComponent("Press " + KeyBinding.getDisplayString(ModKeyBindings.OPEN_SPELL_SELECTION.getKeyBinding().getKeyDescription()).get().getString()+ " to quick select"));
-            tooltip.add(new StringTextComponent("Press " + KeyBinding.getDisplayString(ModKeyBindings.OPEN_BOOK.getKeyBinding().getKeyDescription()).get().getString() + " to quick craft"));
-        }
-    }
-
-    @Override
-    public Tier getTier() {
-        return this.tier;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-
-    }
-    AnimationFactory factory = new AnimationFactory(this);
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
-    }
 }

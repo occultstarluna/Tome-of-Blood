@@ -49,13 +49,16 @@ public class NaturalSpellResolver extends SpellResolver {
         if(entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
             int totalCost = getCastingCost(this.spell,player);
+
+            totalCost *= 200;
             boolean success = NaturesAuraAPI.instance().extractAuraFromPlayer(player,totalCost,true);
             //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
 
+            return success;
 
         }
 
-        return true;
+        return false;
     }
 
 
@@ -65,7 +68,7 @@ public class NaturalSpellResolver extends SpellResolver {
         if(entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
             int totalCost = getCastingCost(this.spell,player);
-            boolean success = NaturesAuraAPI.instance().extractAuraFromPlayer(player,totalCost,true);
+            boolean success = NaturesAuraAPI.instance().extractAuraFromPlayer(player,totalCost,player.world.isRemote);
         }
     }
 }

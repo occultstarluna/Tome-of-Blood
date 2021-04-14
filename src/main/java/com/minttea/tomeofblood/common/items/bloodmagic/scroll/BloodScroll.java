@@ -4,7 +4,7 @@ import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.api.spell.AbstractSpellPart;
 import com.hollingsworth.arsnouveau.api.util.SpellRecipeUtil;
 import com.hollingsworth.arsnouveau.common.block.tile.ScribesTile;
-import com.minttea.tomeofblood.common.client.gui.ScrollContainer;
+import com.minttea.tomeofblood.client.gui.ScrollContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;

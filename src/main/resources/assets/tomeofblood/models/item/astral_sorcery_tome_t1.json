@@ -3,8 +3,8 @@
 	"parent": "builtin/entity",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "mod_name:items/astral_sorcery_tome",
-		"particle": "mod_name:items/astral_sorcery_tome"
+		"0": "tomeofblood:items/astral_sorcery_tome",
+		"particle": "tomeofblood:items/astral_sorcery_tome"
 	},
 	"elements": [
 		{

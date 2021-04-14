@@ -1,4 +1,4 @@
-package com.minttea.tomeofblood.common.client.gui;
+package com.minttea.tomeofblood.client.gui;
 
 import com.hollingsworth.arsnouveau.common.items.Glyph;
 import com.minttea.tomeofblood.common.items.bloodmagic.scroll.BloodScroll;

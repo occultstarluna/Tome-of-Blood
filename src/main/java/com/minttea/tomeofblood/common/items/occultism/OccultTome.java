@@ -19,7 +19,7 @@ public class OccultTome extends SpellTome {
     @Override
     public SpellResolver getSpellResolver(SpellContext context)
     {
-        return new BloodSpellResolver(context);
+        return new OccultSpellResolver(context);
     }
 
 

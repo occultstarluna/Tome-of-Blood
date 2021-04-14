@@ -4,7 +4,7 @@
     "item": "ars_nouveau:apprentice_spell_book"
   },
   "output": {
-    "item": "tomeofblood:tome_of_blood"
+    "item": "tomeofblood:tome_of_blood_t1"
   },
   "upgradeLevel": 2,
   "altarSyphon": 10000,

@@ -1,16 +1,16 @@
 {
   "name": "The Bloody Tome",
-  "icon": "tomeofblood:tome_of_blood",
+  "icon": "tomeofblood:tome_of_blood_t1",
   "category": "equipment",
   "pages": [
     {
       "type": "text",
-      "text": "The discerning wizard may crave a new source of raw power for bruh spells.  For those learned in the art of Blood Magic, a new option arises.  As you cast spells with the Tome of Blood, it draws directly from your Soul Network in lieu of your mana pool."
+      "text": "The discerning wizard may crave a new source of raw power for their spells.  For those learned in the art of Blood Magic, a new option arises.  As you cast spells with the Tome of Blood, it draws directly from your Soul Network in lieu of your mana pool."
     },
     {
       "type":"tomeofblood:crafting_altar",
       "heading":"The Tome of Blood",
-      "recipe":"tomeofblood:altar/tome_of_blood"
+      "recipe":"tomeofblood:altar/tome_of_blood_t1"
     }
   ]
 }

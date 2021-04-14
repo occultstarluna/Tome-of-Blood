@@ -3,8 +3,8 @@
 	"parent": "builtin/entity",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "mod_name:items/botania_tome",
-		"particle": "mod_name:items/botania_tome"
+		"0": "tomeofblood:items/botania_tome",
+		"particle": "tomeofblood:items/botania_tome"
 	},
 	"elements": [
 		{
