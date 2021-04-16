@@ -26,7 +26,7 @@ public class ScrollContainer extends Container {
     private final ItemStack scroll;
     public final IInventory scrollInv;
     public ScrollContainer(int id, PlayerInventory playerInventory, ItemStack scroll) {
-        super(Registry.container, id);
+        super(Registry.RegistrationHandler.container, id);
         this.scroll = scroll;
 
         int i;

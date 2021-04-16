@@ -2,14 +2,13 @@ package com.minttea.tomeofblood.common.capabilities;
 
 import net.minecraft.entity.LivingEntity;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class WarlockPower implements IWarlockPower{
 
     private final LivingEntity entity;
 
-    private double power;
+    private int power;
 
     private int maxPower;
 
@@ -20,7 +19,7 @@ public class WarlockPower implements IWarlockPower{
     }
 
     @Override
-    public double getCurrentPower() {
+    public int getCurrentPower() {
         return power;
     }
 
@@ -35,7 +34,7 @@ public class WarlockPower implements IWarlockPower{
     }
 
     @Override
-    public double setPower(double newPower) {
+    public int setPower(int newPower) {
         if( newPower > getMaxPower())
             this.power = getMaxPower();
         else if(newPower<0)
@@ -46,17 +45,17 @@ public class WarlockPower implements IWarlockPower{
     }
 
     @Override
-    public double addPower(double powerToAdd) {
+    public int addPower(int powerToAdd) {
         return this.setPower(this.getCurrentPower() + powerToAdd);
     }
 
     @Override
-    public double refreshPower() {
+    public int refreshPower() {
         return this.setPower(this.getMaxPower());
     }
 
     @Override
-    public double spendPower(double powerToSpend) {
+    public int spendPower(int powerToSpend) {
         if(powerToSpend < 0)
             powerToSpend = 0;
         return this.setPower(this.getCurrentPower()-powerToSpend);

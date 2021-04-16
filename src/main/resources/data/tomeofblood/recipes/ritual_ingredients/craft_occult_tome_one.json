@@ -1,0 +1,21 @@
+{
+  "type": "occultism:ritual_ingredient",
+  "ingredients": [
+    {
+      "item": "occultism:purified_ink"
+    },
+    {
+      "item": "occultism:book_of_binding_bound_foliot"
+    },
+    {
+      "item": "ars_nouveau:mana_gem"
+    },
+    {
+      "item": "ars_nouveau:mana_gem"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

@@ -1,6 +1,6 @@
 package com.minttea.tomeofblood.common.capabilities;
 
-import com.hollingsworth.arsnouveau.common.capability.SerializableCapabilityProvider;
+
 import com.minttea.tomeofblood.TomeOfBloodMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +15,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.system.CallbackI;
@@ -27,7 +28,7 @@ public class WarlockPowerCapability {
 
 
     @CapabilityInject(IWarlockPower.class)
-    public static Capability<IWarlockPower> WARLOCK_POWER = null;
+    public static final Capability<IWarlockPower> WARLOCK_POWER = Null();
 
     public static final Direction DEFAULT_FACING = null;
 
@@ -35,27 +36,7 @@ public class WarlockPowerCapability {
 
     public static void register()
     {
-        CapabilityManager.INSTANCE.register(IWarlockPower.class, new Capability.IStorage<IWarlockPower>()
-        {
-            @Nullable
-            @Override
-            public INBT writeNBT(Capability<IWarlockPower> capability, IWarlockPower instance, Direction side) {
-                CompoundNBT tag = new CompoundNBT();
-                tag.putDouble("current", instance.getCurrentPower());
-                tag.putInt("max", instance.getMaxPower());
-                return tag;
-            }
-
-            @Override
-            public void readNBT(Capability<IWarlockPower> capability, IWarlockPower instance, Direction side, INBT nbt) {
-                if(!(nbt instanceof CompoundNBT))
-                    return;
-                CompoundNBT tag = (CompoundNBT) nbt;
-                instance.setMaxPower(tag.getInt("max"));
-                instance.setPower(tag.getInt("current"));
-
-            }
-        }, () -> new WarlockPower(null));
+        CapabilityManager.INSTANCE.register(IWarlockPower.class, new WarlockPowerStorage(), () -> new WarlockPower(null));
     }
 
 
@@ -83,5 +64,19 @@ public class WarlockPowerCapability {
             }
         }
 
+    }
+
+    @SubscribeEvent
+    public static void playerClone(final PlayerEvent.Clone event)
+    {
+        getPower(event.getOriginal()).ifPresent(oldMaxPower -> {
+            getPower(event.getPlayer()).ifPresent(newMaxPower ->
+                    {
+                        newMaxPower.setMaxPower(oldMaxPower.getMaxPower());
+                        newMaxPower.setPower(oldMaxPower.getCurrentPower());
+                    }
+                    );
+                }
+                );
     }
 }

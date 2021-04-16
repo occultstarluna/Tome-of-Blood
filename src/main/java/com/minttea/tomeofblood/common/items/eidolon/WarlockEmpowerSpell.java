@@ -52,11 +52,8 @@ public class WarlockEmpowerSpell extends StaticSpell {
 */
         RayTraceResult ray = world.rayTraceBlocks(new RayTraceContext(player.getEyePosition(0), player.getEyePosition(0).add(player.getLookVec().scale(4)), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
         Vector3d v = ray.getType() == RayTraceResult.Type.BLOCK ? ray.getHitVec() : player.getEyePosition(0).add(player.getLookVec().scale(4));
-        List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(v.x - 1.5, v.y - 1.5, v.z - 1.5, v.x + 1.5, v.y + 1.5, v.z + 1.5));
-        if (items.size() != 1)
-            return false;
-        ItemStack stack = items.get(0).getItem();
-        return stack.getCount() == 1 && canEmpower(stack);
+
+        return true;
     }
 
     private boolean canEmpower(ItemStack stack) {
@@ -78,12 +75,7 @@ public class WarlockEmpowerSpell extends StaticSpell {
     @Override
     public void cast(World world, BlockPos blockPos, PlayerEntity player) {
         player.sendMessage(new StringTextComponent("Casting Warlock Empower"), Util.DUMMY_UUID);
-        RayTraceResult ray = world.rayTraceBlocks(new RayTraceContext(player.getEyePosition(0), player.getEyePosition(0).add(player.getLookVec().scale(4)), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
-        Vector3d v = ray.getType() == RayTraceResult.Type.BLOCK ? ray.getHitVec() : player.getEyePosition(0).add(player.getLookVec().scale(4));
-        List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(v.x - 1.5, v.y - 1.5, v.z - 1.5, v.x + 1.5, v.y + 1.5, v.z + 1.5));
 
-        if(items.size() == 1)
-        {
             if(!world.isRemote)
             {
                 /*
@@ -113,6 +105,6 @@ public class WarlockEmpowerSpell extends StaticSpell {
                 world.playSound(player, player.getPosition(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.NEUTRAL, 1.0F, 0.6F + world.rand.nextFloat() * 0.2F);
             }
 
-        }
+
     }
 }

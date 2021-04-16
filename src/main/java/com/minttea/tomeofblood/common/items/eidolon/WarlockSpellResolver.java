@@ -51,7 +51,11 @@ public class WarlockSpellResolver extends SpellResolver {
             PlayerEntity player = (PlayerEntity) entity;
             int totalCost = getCastingCost(this.spell,player);
             IWarlockPower power = WarlockPowerCapability.getPower(entity).orElse(null);
-            if(totalCost < power.getCurrentPower())
+            if( power == null) {
+                player.sendMessage(new StringTextComponent("No power."), Util.DUMMY_UUID);
+                return false;
+            }
+            if(totalCost > power.getCurrentPower() )
             {
                 player.sendMessage(new StringTextComponent("Not enough power..."), Util.DUMMY_UUID);
                 return false;

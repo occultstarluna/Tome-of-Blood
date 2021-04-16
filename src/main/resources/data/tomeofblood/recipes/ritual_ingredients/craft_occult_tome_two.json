@@ -1,0 +1,27 @@
+{
+  "type": "occultism:ritual_ingredient",
+  "ingredients": [
+    {
+      "item": "occultism:purified_ink"
+    },
+    {
+      "item": "occultism:spirit_attuned_crystal"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "ars_nouveau:spell_parchment"
+    },
+    {
+      "item": "ars_nouveau:spell_parchment"
+    }
+  ],
+  "result": {
+    "_comment": "Unused",
+    "item": "occultism:pentacle"
+  }
+}

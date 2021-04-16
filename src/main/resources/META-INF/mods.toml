@@ -61,14 +61,26 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     ordering="NONE"
     side="BOTH"
 [[dependencies.tomeofblood]]
-modId="ars_nouveau"
-mandatory=true
-versionRange="[1.11,)"
-ordering="AFTER"
-side="BOTH"
+    modId="ars_nouveau"
+    mandatory=true
+    versionRange="[1.13,)"
+    ordering="AFTER"
+    side="BOTH"
 [[dependencies.tomeofblood]]
-modId="bloodmagic"
-mandatory=true
-versionRange="[1.16.3-3.0,)"
-ordering="AFTER"
-side="BOTH"
+    modId="bloodmagic"
+    mandatory=true
+    versionRange="[1.16.3-3.0,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.tomeofblood]]
+    modId="occultism"
+    mandatory=true
+    versionRange="[1.16.5-1.0,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.tomeofblood]]
+    modId="eidolon"
+    mandatory=true
+    versionRange="[0.2,)"
+    ordering="AFTER"
+    side="BOTH"

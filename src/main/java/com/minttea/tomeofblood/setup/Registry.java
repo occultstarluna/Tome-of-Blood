@@ -1,7 +1,10 @@
 package com.minttea.tomeofblood.setup;
 
+import com.github.klikli_dev.occultism.common.ritual.Ritual;
+import com.github.klikli_dev.occultism.registry.OccultismRituals;
 import com.hollingsworth.arsnouveau.api.ArsNouveauAPI;
 import com.hollingsworth.arsnouveau.api.spell.ISpellTier;
+import com.hollingsworth.arsnouveau.setup.ItemsRegistry;
 import com.minttea.tomeofblood.TomeOfBloodMod;
 import com.minttea.tomeofblood.client.gui.GuiBloodScroll;
 import com.minttea.tomeofblood.common.items.NewGlyphLib;
@@ -14,6 +17,7 @@ import com.minttea.tomeofblood.common.items.eidolon.WarlockEmpowerSpell;
 import com.minttea.tomeofblood.common.items.eidolon.WarlockTome;
 import com.minttea.tomeofblood.common.items.nature.NaturalTome;
 import com.minttea.tomeofblood.common.items.occultism.BookOfCasting;
+import com.minttea.tomeofblood.common.items.occultism.CraftOccultTomeRitual;
 import com.minttea.tomeofblood.common.items.occultism.OccultTome;
 import com.minttea.tomeofblood.common.items.occultism.SpiritClass;
 import elucent.eidolon.spell.Signs;
@@ -21,12 +25,16 @@ import elucent.eidolon.spell.Spells;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -35,6 +43,7 @@ import java.util.Set;
 
 @ObjectHolder(TomeOfBloodMod.MODID)
 public class Registry {
+
     @ObjectHolder("blood_tome_one")public static BloodTome bloodTome1;
     @ObjectHolder("blood_tome_two")public static BloodTome bloodTome2;
     @ObjectHolder("blood_tome_three")public static BloodTome bloodTome3;
@@ -54,11 +63,16 @@ public class Registry {
     @ObjectHolder("blood_scroll")public static BloodScroll bloodScroll;
     @ObjectHolder("blood_gem")public static BloodGem bloodGem;
 
-    @ObjectHolder("blood_scroll")public static ContainerType<ScrollContainer> container;
-        //public static Item bloodTome = new Item(new Item.Properties().maxStackSize(1).group(TomeOfBloodMod.itemGroup)).setRegistryName("tome_of_blood");
+    @ObjectHolder("craft_occult_tome_one") public static CraftOccultTomeRitual craftOccultTomeOneRitual;
+    @ObjectHolder("craft_occult_tome_two") public static CraftOccultTomeRitual craftOccultTomeTwoRitual;
+    @ObjectHolder("craft_occult_tome_three") public static CraftOccultTomeRitual craftOccultTomeThreeRitual;
+
+
     @Mod.EventBusSubscriber(modid = TomeOfBloodMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @ObjectHolder(TomeOfBloodMod.MODID)
     public static class RegistrationHandler{
-        public static final Set<Item> ITEMS = new HashSet<>();
+        //public static final Set<Item> ITEMS = new HashSet<>();
+        @ObjectHolder("blood_scroll")public static ContainerType<ScrollContainer> container;
 
         @SubscribeEvent
         public static void registerItems(final RegistryEvent.Register<Item> event)
@@ -90,7 +104,7 @@ public class Registry {
             for(final Item item: items)
             {
                 registry.register(item);
-                ITEMS.add(item);
+                //ITEMS.add(item);
             }
 
 
@@ -101,6 +115,9 @@ public class Registry {
         {
             ArsNouveauAPI.getInstance().registerSpell(NewGlyphLib.EffectSentientHarmID, new SentientHarmEffect());
             Spells.register(new WarlockEmpowerSpell(new ResourceLocation(TomeOfBloodMod.MODID, "warlock_empower"), Signs.WICKED_SIGN));//, Signs.MIND_SIGN,Signs.SOUL_SIGN));
+//            OccultismRituals.RITUALS.register("craft_occult_tome_one", CraftOccultTomeOneRitual::new);
+           //OccultismRituals.RITUALS.;
+
         }
 
         @SubscribeEvent
@@ -110,6 +127,31 @@ public class Registry {
             container.setRegistryName("blood_scroll_screen");
             event.getRegistry().register(container);
         }
+       @SubscribeEvent
+       public static void registerRituals(final RegistryEvent.Register<Ritual> event)
+       {
+
+           Ritual[] rituals = {
+             new CraftOccultTomeRitual(OccultismRituals.CRAFT_FOLIOT_PENTACLE.get()
+                     , Ingredient.fromItems(ItemsRegistry.noviceSpellBook),
+                     "craft_occult_tome_one",occultTome1).setRegistryName("craft_occult_tome_one"),
+
+                   new CraftOccultTomeRitual(OccultismRituals.CRAFT_DJINNI_PENTACLE.get()
+                           , Ingredient.fromItems(occultTome1),
+                           "craft_occult_tome_two",occultTome2).setRegistryName("craft_occult_tome_two")
+
+                   ,
+
+                   new CraftOccultTomeRitual(OccultismRituals.CRAFT_AFRIT_PENTACLE.get()
+                           , Ingredient.fromItems(occultTome2),
+                           "craft_occult_tome_three",occultTome3).setRegistryName("craft_occult_tome_three")
+           };
+           for (Ritual r: rituals
+                ) {
+               event.getRegistry().register(r);
+           }
+
+       }
 
         @SubscribeEvent
         public static void onClientSetupEvent(FMLClientSetupEvent event) {

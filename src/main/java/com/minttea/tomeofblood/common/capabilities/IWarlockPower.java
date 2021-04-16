@@ -2,19 +2,19 @@ package com.minttea.tomeofblood.common.capabilities;
 
 public interface IWarlockPower {
 
-    double getCurrentPower();
+    int getCurrentPower();
 
     int getMaxPower();
 
     void setMaxPower(int max);
 
-    double setPower(final double power);
+    int setPower(final int power);
 
-    double addPower(final double powerToAdd);
+    int addPower(final int powerToAdd);
 
-    double refreshPower();
+    int refreshPower();
 
-    double spendPower(final double powerToSpend);
+    int spendPower(final int powerToSpend);
 
 
 }
