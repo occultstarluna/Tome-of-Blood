@@ -1,6 +1,8 @@
 package com.minttea.tomeofblood.common.capabilities;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 
@@ -51,6 +53,7 @@ public class WarlockPower implements IWarlockPower{
 
     @Override
     public int refreshPower() {
+        this.entity.sendMessage(new TranslationTextComponent("tomeofblood.alert.power_refresh"), Util.DUMMY_UUID);
         return this.setPower(this.getMaxPower());
     }
 
@@ -58,6 +61,20 @@ public class WarlockPower implements IWarlockPower{
     public int spendPower(int powerToSpend) {
         if(powerToSpend < 0)
             powerToSpend = 0;
+        int newPower = this.getCurrentPower()-powerToSpend;
+        if(this.getPowerPercentage() > .75 && (double)newPower/this.getMaxPower() < .75)
+            this.entity.sendMessage(new TranslationTextComponent("tomeofblood.alert.power_75"), Util.DUMMY_UUID);
+        else if(this.getPowerPercentage() > .5 && (double)newPower/this.getMaxPower() < .5)
+            this.entity.sendMessage(new TranslationTextComponent("tomeofblood.alert.power_50"), Util.DUMMY_UUID);
+        else if(this.getPowerPercentage() > .25 && (double)newPower/this.getMaxPower() < .25)
+            this.entity.sendMessage(new TranslationTextComponent("tomeofblood.alert.power_25"), Util.DUMMY_UUID);
+        else if((double)newPower/this.getMaxPower() < .05)
+            this.entity.sendMessage(new TranslationTextComponent("tomeofblood.alert.power_0"), Util.DUMMY_UUID);
+
         return this.setPower(this.getCurrentPower()-powerToSpend);
+    }
+
+    private double getPowerPercentage() {
+        return (double) this.power/(double) this.maxPower;
     }
 }

@@ -114,5 +114,10 @@ public class SpellTome extends SpellBook {
         return new SpellResolver(context);
     }
 
+    @Override
+    public boolean shouldDisplay(ItemStack stack)
+    {
+        return false;
+    }
 
 }

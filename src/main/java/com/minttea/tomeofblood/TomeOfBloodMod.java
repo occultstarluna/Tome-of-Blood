@@ -1,15 +1,19 @@
 package com.minttea.tomeofblood;
 
-import com.hollingsworth.arsnouveau.client.ClientHandler;
 import com.minttea.tomeofblood.common.capabilities.WarlockPowerCapability;
 import com.minttea.tomeofblood.common.events.LivingArmorManaBonus;
 import com.minttea.tomeofblood.common.network.Networking;
 import com.minttea.tomeofblood.setup.*;
+//import com.minttea.tomeofblood.setup.Registries.Registry;
+import com.minttea.tomeofblood.setup.Registries.ItemRegistry;
+import com.minttea.tomeofblood.setup.Registries.RecipeRegistry;
+import com.minttea.tomeofblood.setup.Registries.RitualRegistry;
+import com.minttea.tomeofblood.setup.Registries.SpellRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -27,15 +31,12 @@ public class TomeOfBloodMod
 
 
     /**
-     * TODO: Find a better Blood Scroll method
      * TODO: Implement Botanic Tome
-     * TODO: Finish Recipe for Natural Tome
      * TODO: Add Astral Sorcery into the Dev Environment and work on the Astral Tome
-     * TODO: Finish adding Occultism Recipes
-     * TODO: Add Warlock Tome Recipes and Empowering Prayers
+     * TODO: Add Warlock Tome Documentation <- Reliant on Eidolon, unless I'm really dumb
      * TODO: Update Blood Tome Recipes preserving NBT data
      * TODO: Don't forget to add in a Tome of Blood carry over for those who update
-     * TODO: Option Registering of items in case mods aren't present.
+     * Option Registering of items in case mods aren't present.<- Impossible, sadly
      */
     public static final String MODID = "tomeofblood";
     // Directly reference a log4j logger.
@@ -46,7 +47,7 @@ public class TomeOfBloodMod
     public static ItemGroup itemGroup = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
-            return Registry.bloodTome3.getDefaultInstance();
+            return ItemRegistry.bloodTome3.getDefaultInstance();
         }
     };
 
@@ -54,7 +55,7 @@ public class TomeOfBloodMod
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(LivingArmorManaBonus.class);
-        Registry.RegistrationHandler.registerSpells();
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         LivingUpgradeRegistry.register();
@@ -63,8 +64,11 @@ public class TomeOfBloodMod
 
     public void setup(final FMLCommonSetupEvent event)
     {
+        SpellRegistry.registerSpells();
         WarlockPowerCapability.register();
+        //RitualRegistry.registerRituals();
         Networking.register();
+        RecipeRegistry.registerRecipes();
     }
     public void clientSetup(final FMLClientSetupEvent event){
         proxy.init();

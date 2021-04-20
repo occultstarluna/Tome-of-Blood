@@ -1,14 +1,8 @@
-package com.minttea.tomeofblood.common.items.occultism;
+package com.minttea.tomeofblood.common.items.occultism.rituals;
 
-import com.github.klikli_dev.occultism.Occultism;
 import com.github.klikli_dev.occultism.common.ritual.Ritual;
 import com.github.klikli_dev.occultism.common.ritual.pentacle.Pentacle;
 import com.github.klikli_dev.occultism.common.tile.GoldenSacrificialBowlTileEntity;
-import com.github.klikli_dev.occultism.registry.OccultismItems;
-import com.github.klikli_dev.occultism.registry.OccultismRituals;
-import com.hollingsworth.arsnouveau.setup.ItemsRegistry;
-import com.minttea.tomeofblood.setup.Registry;
-import com.minttea.tomeofblood.util.NBTHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,12 +13,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class CraftOccultTomeRitual extends Ritual {
+public class OccultCraftingRitual extends Ritual {
 
     private Item result;
 
-    public CraftOccultTomeRitual(Pentacle pentacle, Ingredient i, String recipe, Item result) {
-        super(pentacle,i,recipe,60);
+    public OccultCraftingRitual(Pentacle pentacle, Ingredient i, String recipe, Item result) {
+        super(pentacle,i,recipe,5);
         this.result=result;
     }
 

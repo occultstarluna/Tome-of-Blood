@@ -7,6 +7,16 @@ buildscript {
             url = "https://maven.ellpeck.de"
         }
         maven { url 'https://maven.blamejared.com' }
+        maven {
+            // location of the maven that hosts JEI files
+            name = "Progwml6 maven"
+            url = "https://dvs1.progwml6.com/files/maven/"
+        }
+        maven {
+            // location of a maven mirror for JEI files, as a fallback
+            name = "ModMaven"
+            url = "https://modmaven.k-4u.nl"
+        }
         jcenter()
         mavenCentral()
     }
@@ -37,7 +47,7 @@ minecraft {
     // Simply re-run your setup task after changing the mappings to update your workspace.
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-    
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
@@ -141,6 +151,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:natures-aura:3255666")
     compileOnly fg.deobf("curse.maven:botania:3233810")
     runtimeOnly fg.deobf("curse.maven:botania:3233810")
+    compileOnly fg.deobf("curse.maven:jei:3280391")
+    runtimeOnly fg.deobf("curse.maven:jei:3280391")
+
 
 
 }

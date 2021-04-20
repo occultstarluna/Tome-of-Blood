@@ -11,14 +11,14 @@ public class PowerUtil {
 
     public static int getMaxPower(PlayerEntity p)
     {
-        AtomicInteger max = new AtomicInteger(1000);
+        AtomicInteger max = new AtomicInteger(1024);
         p.getEquipmentAndArmor().forEach(i->{
             if(i.getItem() instanceof WarlockRobesItem)
             {
-                max.addAndGet(400);
+                max.addAndGet(1000);
             }
         });
-        max.addAndGet((int) (p.world.getCapability(ReputationProvider.CAPABILITY).resolve().get().getReputation(p, Deities.DARK_DEITY.getId()) * 500));
+        max.addAndGet((int) (p.world.getCapability(ReputationProvider.CAPABILITY).resolve().get().getReputation(p, Deities.DARK_DEITY.getId()) * 2000));
 
 
 

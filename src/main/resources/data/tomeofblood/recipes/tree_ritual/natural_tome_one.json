@@ -1,0 +1,28 @@
+{
+  "type": "naturesaura:tree_ritual",
+  "ingredients": [
+    {
+      "item": "ars_nouveau:mana_gem"
+    },
+    {
+      "item": "ars_nouveau:mana_gem"
+    },
+    {
+      "item": "ars_nouveau:spell_parchment"
+    },
+    {
+      "item": "ars_nouveau:novice_spell_book"
+    },
+    {
+      "item": "ars_nouveau:spell_parchment"
+    }
+  ],
+  "sapling": {
+    "item": "minecraft:oak_sapling"
+  },
+  "output": {
+    "item": "tomeofblood:natural_tome_one",
+    "count": 1
+  },
+  "time": 200
+}

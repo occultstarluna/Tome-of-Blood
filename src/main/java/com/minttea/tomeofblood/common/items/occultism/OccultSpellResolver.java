@@ -67,7 +67,7 @@ public class OccultSpellResolver extends SpellResolver {
 
             if(castingCapacity < totalCost)
             {
-                entity.sendMessage(new TranslationTextComponent("toomanytomes.alert.no_spirits"), Util.DUMMY_UUID);
+                entity.sendMessage(new TranslationTextComponent("tomeofblood.alert.no_spirits"), Util.DUMMY_UUID);
                 return false;
             } else {
                 return true;
@@ -92,14 +92,14 @@ public class OccultSpellResolver extends SpellResolver {
 
     public ArrayList<ItemStack> getCastingBooks(PlayerEntity player)
     {
-        player.sendMessage(new StringTextComponent("Getting all the books you have"), Util.DUMMY_UUID);
+        ///player.sendMessage(new StringTextComponent("Getting all the books you have"), Util.DUMMY_UUID);
         ArrayList<ItemStack> castingBooks = new ArrayList<>();
         PlayerInventory inventory = player.inventory;
         ItemStack offhand = player.getHeldItemOffhand();
         if(offhand.getItem() instanceof BookOfCasting)
         {
             castingBooks.add(offhand);
-            player.sendMessage(new StringTextComponent("Found book in offhand!"), Util.DUMMY_UUID);
+        //    player.sendMessage(new StringTextComponent("Found book in offhand!"), Util.DUMMY_UUID);
         }
 
 
@@ -109,7 +109,7 @@ public class OccultSpellResolver extends SpellResolver {
             i = inventory.getSlotFor(buffer);
             if(buffer.getItem()  instanceof BookOfCasting) {
                 castingBooks.add(buffer);
-                player.sendMessage(new StringTextComponent("Found book in slot + " + i +"!"), Util.DUMMY_UUID);
+            //    player.sendMessage(new StringTextComponent("Found book in slot + " + i +"!"), Util.DUMMY_UUID);
             }
         }
 
@@ -126,7 +126,7 @@ public class OccultSpellResolver extends SpellResolver {
             capacity += stack.getMaxDamage() - stack.getDamage();
 
         }
-        player.sendMessage(new StringTextComponent("Capacity is " + capacity), Util.DUMMY_UUID);
+        //player.sendMessage(new StringTextComponent("Capacity is " + capacity), Util.DUMMY_UUID);
         return capacity;
 
     }
@@ -141,11 +141,11 @@ public class OccultSpellResolver extends SpellResolver {
             int curDam = stack.getMaxDamage() - stack.getDamage();
             if(workingCost > curDam)
             {
-                player.sendMessage(new StringTextComponent("Working cost is" + workingCost + " and capacity is " + curDam + ", removing book."), Util.DUMMY_UUID);
+            //    player.sendMessage(new StringTextComponent("Working cost is" + workingCost + " and capacity is " + curDam + ", removing book."), Util.DUMMY_UUID);
                 workingCost -= curDam;
                 stack.shrink(1);
             } else {
-                player.sendMessage(new StringTextComponent("Working cost is" + workingCost + " and capacity is " + curDam + ", damaging book."), Util.DUMMY_UUID);
+            //    player.sendMessage(new StringTextComponent("Working cost is" + workingCost + " and capacity is " + curDam + ", damaging book."), Util.DUMMY_UUID);
                 stack.damageItem(workingCost, player, (playerIn) -> playerIn.sendBreakAnimation(EquipmentSlotType.MAINHAND));
                 stack.attemptDamageItem(workingCost, player.world.rand, (ServerPlayerEntity) player);
                 break;

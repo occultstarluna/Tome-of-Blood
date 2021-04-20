@@ -1,0 +1,9 @@
+{
+  "type": "occultism:ritual",
+  "ingredient": {
+    "item": "tomeofblood:occult_tome_two"
+  },
+  "result":{
+    "item": "tomeofblood:occult_tome_three"
+  }
+}

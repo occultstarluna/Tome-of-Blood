@@ -53,7 +53,8 @@ public class NaturalSpellResolver extends SpellResolver {
             totalCost *= 200;
             boolean success = NaturesAuraAPI.instance().extractAuraFromPlayer(player,totalCost,true);
             //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
-
+            if (!success)
+                entity.sendMessage(new TranslationTextComponent("tomeofblood.alert.no_aura"), Util.DUMMY_UUID);
             return success;
 
         }

@@ -1,7 +1,7 @@
 {
   "type": "occultism:ritual",
   "ingredient": {
-    "item": "tomeofblood:occult_tome_two"
+    "item": "tomeofblood:occult_tome_one"
   },
   "result":{
     "item": "tomeofblood:occult_tome_two"

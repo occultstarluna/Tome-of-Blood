@@ -80,10 +80,11 @@ public class SentientHarmEffect extends AbstractEffect {
 
     }
 
-    public float getExtraDamage(SpellContext spellContext, EnumDemonWillType type, int bracket)
+    public float getExtraDamage(SpellContext spellContext, EnumDemonWillType type, int souls)
     {
 
 
+        int bracket = getBracket(type, souls);
         if(bracket<0)
         {
             return 0;

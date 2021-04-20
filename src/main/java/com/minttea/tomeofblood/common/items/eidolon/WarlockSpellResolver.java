@@ -57,7 +57,7 @@ public class WarlockSpellResolver extends SpellResolver {
             }
             if(totalCost > power.getCurrentPower() )
             {
-                player.sendMessage(new StringTextComponent("Not enough power..."), Util.DUMMY_UUID);
+                player.sendMessage(new StringTextComponent("Not enough power...  Try praying more."), Util.DUMMY_UUID);
                 return false;
             } else {
                 return true;
@@ -79,7 +79,7 @@ public class WarlockSpellResolver extends SpellResolver {
             int totalCost = getCastingCost(this.spell,player);
            WarlockPowerCapability.getPower(entity).ifPresent(power -> power.spendPower(totalCost));
            double remaining = WarlockPowerCapability.getPower(entity).orElse(null).getCurrentPower();
-           player.sendMessage(new StringTextComponent("Casted spell for " + totalCost + " power.  " + remaining + " remaining."), Util.DUMMY_UUID);
+           //player.sendMessage(new StringTextComponent("Casted spell for " + totalCost + " power.  " + remaining + " remaining."), Util.DUMMY_UUID);
         }
     }
 }

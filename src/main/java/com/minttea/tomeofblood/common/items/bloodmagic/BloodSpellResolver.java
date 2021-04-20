@@ -55,6 +55,7 @@ public class BloodSpellResolver extends SpellResolver {
 
         if(entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
+            if(player.isCreative()) return true;
             int totalCost = getCastingCost(this.spell,player);
             SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(player.getUniqueID());
             //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
@@ -76,11 +77,12 @@ public class BloodSpellResolver extends SpellResolver {
     {
         if(entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
+            if(!player.isCreative()) {
             int totalCost = getCastingCost(this.spell,player);
             SoulNetwork soulNetwork = NetworkHelper.getSoulNetwork(player.getUniqueID());
             //LOGGER.debug("Got soulnetwork for " + soulNetwork.getPlayer().getDisplayName().getString());
             SoulTicket ticket = new SoulTicket(new StringTextComponent("Spell cast"), totalCost);
-            soulNetwork.syphonAndDamage(player, ticket);
+            soulNetwork.syphonAndDamage(player, ticket);}
         }
     }
 }
