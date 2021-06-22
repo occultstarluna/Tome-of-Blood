@@ -1,12 +1,12 @@
 {
   "type": "bloodmagic:altar",
   "input": {
-    "item": "ars_nouveau:novie_spell_book"
+    "item": "ars_nouveau:novice_spell_book"
   },
   "output": {
     "item": "tomeofblood:blood_tome_one"
   },
-  "upgradeLevel": 2,
+  "upgradeLevel": 1,
   "altarSyphon": 10000,
   "consumptionRate": 20,
   "drainRate": 20

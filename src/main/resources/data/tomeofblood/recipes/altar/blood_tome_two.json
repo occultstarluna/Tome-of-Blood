@@ -1,0 +1,13 @@
+{
+  "type": "bloodmagic:altar",
+  "input": {
+    "item": "tomeofblood:blood_tome_one"
+  },
+  "output": {
+    "item": "tomeofblood:blood_tome_two"
+  },
+  "upgradeLevel": 2,
+  "altarSyphon": 25000,
+  "consumptionRate": 20,
+  "drainRate": 20
+}

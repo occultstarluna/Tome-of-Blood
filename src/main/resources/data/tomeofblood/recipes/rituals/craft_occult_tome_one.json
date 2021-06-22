@@ -1,9 +1,0 @@
-{
-  "type": "occultism:ritual",
-  "ingredient": {
-    "item": "ars_nouveau:novice_spell_book"
-  },
-  "result":{
-    "item": "tomeofblood:occult_tome_one"
-  }
-}

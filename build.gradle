@@ -33,7 +33,7 @@ apply plugin: 'maven-publish'
 apply plugin: "com.wynprice.cursemaven"
 //apply plugin: 'org.spongepowered.mixin'
 version = '1.16.5-1.1'
-group = 'com.minttea.tomeofblood' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.minttea.minecraft' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'tomeofblood'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -45,7 +45,7 @@ minecraft {
     // stable_#            Stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20201028-1.16.3'
+    mappings channel: 'snapshot', version: '20210309-1.16.5'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -61,7 +61,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.disableRefMap', 'true'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 tomeoblood {
                     source sourceSets.main
@@ -113,7 +115,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.1.4'
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
@@ -139,18 +141,10 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:curios:3122651")
     compileOnly fg.deobf("curse.maven:patchouli:3126931")
     runtimeOnly fg.deobf("curse.maven:patchouli:3126931")
-    compileOnly fg.deobf("curse.maven:ars-noveau:3275318")
-    runtimeOnly fg.deobf("curse.maven:ars-noveau:3275318")
-    compileOnly fg.deobf("curse.maven:blood-magic:3149693")
-    runtimeOnly fg.deobf("curse.maven:blood-magic:3149693")
-    compileOnly fg.deobf("curse.maven:occultism:3238238")
-    runtimeOnly fg.deobf("curse.maven:occultism:3238238")
-    compileOnly fg.deobf("curse.maven:eidolon:3157832")
-    runtimeOnly fg.deobf("curse.maven:eidolon:3157832")
-    compileOnly fg.deobf("curse.maven:natures-aura:3255666")
-    runtimeOnly fg.deobf("curse.maven:natures-aura:3255666")
-    compileOnly fg.deobf("curse.maven:botania:3233810")
-    runtimeOnly fg.deobf("curse.maven:botania:3233810")
+    compileOnly fg.deobf("curse.maven:ars-noveau:3344322")
+    runtimeOnly fg.deobf("curse.maven:ars-noveau:3344322")
+    compileOnly fg.deobf("curse.maven:blood-magic:3184485")
+    runtimeOnly fg.deobf("curse.maven:blood-magic:3184485")
     compileOnly fg.deobf("curse.maven:jei:3280391")
     runtimeOnly fg.deobf("curse.maven:jei:3280391")
 

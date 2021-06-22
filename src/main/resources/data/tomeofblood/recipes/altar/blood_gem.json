@@ -1,0 +1,13 @@
+{
+  "type": "bloodmagic:altar",
+  "input": {
+    "item": "ars_nouveau:mana_gem"
+  },
+  "output": {
+    "item": "tomeofblood:blood_gem"
+  },
+  "upgradeLevel": 0,
+  "altarSyphon": 2000,
+  "consumptionRate": 20,
+  "drainRate": 20
+}

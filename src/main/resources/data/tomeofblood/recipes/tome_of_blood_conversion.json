@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [{"item":"tomeofblood:tome_of_blood"}],
+  "result": {
+    "item":"tomeofblood:blood_tome_three",
+    "count": 1
+  }
+}
