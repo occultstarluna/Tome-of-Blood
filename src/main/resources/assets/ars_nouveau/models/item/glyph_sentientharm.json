@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "tomeofblood:items/blood_gem"
+    "layer0": "ars_nouveau:items/sentientharm"
   }
 }

@@ -32,7 +32,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "com.wynprice.cursemaven"
 //apply plugin: 'org.spongepowered.mixin'
-version = '1.16.5-1.1'
+version = '1.16.5-1.2'
 group = 'com.minttea.minecraft' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'tomeofblood'
 
@@ -115,7 +115,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.4'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.1.62'
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
@@ -135,16 +135,18 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    compileOnly fg.deobf("curse.maven:geckolib:3120121")
-    runtimeOnly fg.deobf("curse.maven:geckolib:3120121")
+    compileOnly fg.deobf("curse.maven:geckolib:3428832")
+    runtimeOnly fg.deobf("curse.maven:geckolib:3428832")
     compileOnly fg.deobf("curse.maven:curios:3122651")
     runtimeOnly fg.deobf("curse.maven:curios:3122651")
+    compileOnly fg.deobf("curse.maven:nbtedit:3062106")
+    runtimeOnly fg.deobf("curse.maven:nbtedit:3062106")
     compileOnly fg.deobf("curse.maven:patchouli:3126931")
     runtimeOnly fg.deobf("curse.maven:patchouli:3126931")
-    compileOnly fg.deobf("curse.maven:ars-noveau:3344322")
-    runtimeOnly fg.deobf("curse.maven:ars-noveau:3344322")
-    compileOnly fg.deobf("curse.maven:blood-magic:3184485")
-    runtimeOnly fg.deobf("curse.maven:blood-magic:3184485")
+    compileOnly fg.deobf("curse.maven:ars-noveau:3442387")
+    runtimeOnly fg.deobf("curse.maven:ars-noveau:3442387")
+    compileOnly fg.deobf("curse.maven:blood-magic:3399440")
+    runtimeOnly fg.deobf("curse.maven:blood-magic:3399440")
     compileOnly fg.deobf("curse.maven:jei:3280391")
     runtimeOnly fg.deobf("curse.maven:jei:3280391")
 

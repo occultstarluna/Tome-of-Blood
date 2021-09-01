@@ -1,0 +1,13 @@
+{
+  "type": "bloodmagic:altar",
+  "input": {
+    "item": "ars_nouveau:spell_parchment"
+  },
+  "output": {
+    "item": "tomeofblood:blood_scroll"
+  },
+  "upgradeLevel": 0,
+  "altarSyphon": 5000,
+  "consumptionRate": 20,
+  "drainRate": 20
+}

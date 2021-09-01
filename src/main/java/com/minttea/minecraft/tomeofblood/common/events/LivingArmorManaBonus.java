@@ -39,11 +39,11 @@ public class LivingArmorManaBonus {
                 LivingStats.toPlayer(player, stats);
                     int level = stats.getLevel(new ResourceLocation("tomeofblood", "mana_bonus"));
                     float discount = 1-(float) level / 10;
-                    LOGGER.debug("Discount: " + discount);
+                    //LOGGER.debug("Discount: " + discount);
                     float manacost = spell.getCastingCost();
-                    LOGGER.debug("Cost: " + manacost);
+                    //LOGGER.debug("Cost: " + manacost);
                     manacost *= discount;
-                    LOGGER.debug("Post discount cost: " + manacost);
+                    //LOGGER.debug("Post discount cost: " + manacost);
                     spell.setCost((int) manacost);
 
             }
