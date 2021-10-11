@@ -70,7 +70,7 @@ public class BloodTome extends SpellBook {
         EntityRayTraceResult entityRes = MathUtil.getLookedAtEntity(playerIn, 25);
 
         if(entityRes != null && entityRes.getEntity() instanceof LivingEntity){
-            resolver.onCastOnEntity(stack, playerIn, (LivingEntity) entityRes.getEntity(), handIn);
+            resolver.onCastOnEntity(stack, playerIn, entityRes.getEntity(), handIn);
             return new ActionResult<>(ActionResultType.CONSUME, stack);
         }
 
