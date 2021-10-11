@@ -49,6 +49,7 @@ public class SentientHarmEffect extends AbstractEffect {
             int bracket = getBracket(type, souls);
             //PortUtil.sendMessage(player, new StringTextComponent("Bracket "+ bracket));
             Entity entity = ((EntityRayTraceResult) rayTraceResult).getEntity();
+            if(entity  instanceof LivingEntity){
             int time = spellStats.getDurationInTicks();
             float damage = (float) (4.0f + (2.0f*getExtraDamage(spellContext, type, souls)) + (2.0f * spellStats.getAmpMultiplier()));
             //PortUtil.sendMessage(player, new StringTextComponent("Duration is " + time + "Damage is " + damage));
@@ -56,11 +57,11 @@ public class SentientHarmEffect extends AbstractEffect {
 
             switch (type) {
                 case CORROSIVE:
-                    if (entity instanceof LivingEntity) {
+
                         //applyPotion((LivingEntity) entity, Effects.WITHER, spellStats , (ItemSentientSword.poisonTime[bracket]*time) , ItemSentientSword.poisonLevel[bracket], true);
                         ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WITHER, (time > 0) ? (ItemSentientSword.poisonTime[bracket]*time):(ItemSentientSword.poisonTime[bracket]), ItemSentientSword.poisonLevel[bracket]+1));
                         //PortUtil.sendMessage(player, new StringTextComponent("Will Type is " + type.getString()+", "+souls));
-                    }
+
                     break;
                 case DEFAULT:
                     //PortUtil.sendMessage(player, new StringTextComponent("Will Type is " + type.getString()+", "+souls));
@@ -87,7 +88,7 @@ public class SentientHarmEffect extends AbstractEffect {
             }
 
             dealDamage(world,shooter,damage,spellStats,entity,buildDamageSource(world, shooter).setMagicDamage());
-        }
+        }}
 
     }
 
